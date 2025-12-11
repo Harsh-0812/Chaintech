@@ -1,0 +1,480 @@
+/* ============================
+  style.css — Windows-optimized
+  (Scales at 1366 / 1440 / 1920 px)
+  ============================ */
+
+/* Root tokens */
+:root{
+  --bg:#000;
+  --card:#0f0f0f;
+  --muted:#bdbdbd;
+  --accent:#A259FF;
+  --neon:#D4FFC8;
+  --page-width:1728px;        /* design canvas width */
+  --content-width:1531px;     /* content blocks width (stats/skills) */
+  --g:24px;
+  --radius:14px;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* Reset */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--bg);
+  color:#fff;
+  font-family:var(--font-sans);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+  font-size:16px;
+}
+
+/* Page wrapper — centers canvas but allows shrink on small windows */
+.page {
+  width: min(100%, var(--page-width));
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* ===== HEADER ===== */
+
+.header {
+    width: 100%;
+    background: #000;
+    border-bottom: 2px solid #b36bff;
+}
+
+.header-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 25px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-img {
+    height: 55px;
+    width: auto;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 45px;
+}
+
+.nav-menu a {
+    color: #fff;
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+.nav-menu a:hover {
+    opacity: 0.6;
+}
+
+.contact-btn {
+    background: #9b5cff;
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.contact-btn:hover {
+    opacity: 0.8;
+}
+
+/* RESPONSIVE NAV FIX (TABLET + MOBILE) */
+@media (max-width: 900px) {
+    .header-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 25px;
+    }
+}
+
+/* ----------------------------
+   HERO (fixed alignment + sizes)
+   Makes left column match reference exactly
+   ---------------------------- */
+
+.hero {
+  width: 100%;
+  display: flex;
+  gap: 36px;
+  align-items: flex-start;     /* align left text with top of right image */
+  padding: 36px 0 80px;
+  box-sizing: border-box;
+}
+
+/* LEFT column: fixed visual width to match Figma proportions */
+.hero-left {
+  flex: 1 1 auto;
+  max-width: 1068px;           /* increases left block width so text fills same area as reference */
+  min-width: 620px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;     /* keep text left-aligned */
+  justify-content: flex-start; /* don't vertically center — match image top */
+  padding-top: 12px;           /* nudge so title top aligns with image top */
+}
+
+/* Huge title tuned for desktop; preserves scaling on smaller screens */
+.title {
+  margin: 0;
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -1.8px;
+  text-transform: uppercase;
+  /* Desktop target ~180px, scales down on smaller widths */
+  font-size: clamp(72px, 11.4vw, 180px);
+}
+
+/* Colored name — sits below title, exact size & spacing */
+.subtitle {
+  margin: 8px 0 16px;
+  font-weight: 900;
+  line-height: 1;
+  font-size: clamp(36px, 5.6vw, 96px);
+  background: linear-gradient(90deg,#ff7a93,#ffb86b,#a259ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+/* Social icons row centered underneath subtitle and spaced like reference */
+.social-icons {
+  display:flex;
+  gap:14px;
+  align-items:center;
+  margin-top:18px;
+  /* keep icons visually centered under the name block */
+}
+
+/* icon visuals (52x52) */
+.social-icons a img {
+  width:52px;
+  height:52px;
+  padding:6px;
+  border-radius:10px;
+  background: rgba(255,255,255,0.02);
+  border:1px solid rgba(255,255,255,0.04);
+}
+
+/* Download CV — full-width visual weight like reference, but responsive */
+.cv-link {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  margin-top:28px;
+  padding:14px 22px;
+  background:#222;
+  color:#fff;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:600;
+  /* visual width similar to reference while staying responsive */
+  width: min(875px, 88%);
+  box-shadow:0 8px 20px rgba(0,0,0,0.45);
+}
+.cv-link .cv-icon { width:18px; height:18px; }
+
+/* RIGHT column: stays fixed (visual card) */
+.hero-right {
+  flex: 0 0 560px;             /* match 560–561px visual width in reference */
+  display:flex;
+  justify-content:flex-end;
+  align-items:flex-start;      /* make top of image align with left text */
+  padding-top: 0;
+}
+
+.hero-right img {
+  width:560px;
+  height:auto;
+  border-radius:18px;
+  object-fit:cover;
+  box-shadow:0 20px 48px rgba(0,0,0,0.6);
+  display:block;
+}
+
+/* ----------------------------
+   Responsive adjustments
+   ---------------------------- */
+
+@media (max-width:1440px){
+  /* slightly reduce left / right proportions for narrower desktops */
+  .hero-left { max-width: 960px; }
+  .hero-right { flex:0 0 480px; }
+  .hero-right img { width:480px; }
+}
+
+@media (max-width:1100px){
+  .hero { gap:20px; padding:28px 0 40px; align-items:flex-start; }
+  .hero-left { max-width:700px; min-width:420px; padding-top:8px; }
+  .title { font-size: clamp(56px, 9.5vw, 140px); }
+  .subtitle { font-size: clamp(28px, 5.0vw, 64px); }
+  .cv-link { width: 92%; }
+  .hero-right { flex:0 0 360px; }
+  .hero-right img { width:360px; }
+}
+
+/* mobile stack: image below text (keeps visual layout tidy) */
+@media (max-width:900px){
+  .hero {
+    flex-direction:column-reverse;
+    align-items:center;
+    padding:26px 0;
+  }
+  .hero-left { align-items:center; text-align:center; max-width:100%; padding-top:0; }
+  .social-icons { justify-content:center; }
+  .hero-right { order:2; flex:0 0 auto; width:100%; }
+  .hero-right img { width:92%; max-width:480px; border-radius:14px; }
+  .title { font-size: clamp(38px, 10.5vw, 88px); }
+  .subtitle { font-size: clamp(18px, 6.5vw, 28px); }
+  .cv-link { width:100%; }
+}
+
+/* ---------- STATS (Content block) ---------- */
+/* Target visual width ~ content-width but flexible */
+.stats {
+  width: min(var(--content-width), 100%);
+  margin:56px auto;
+  padding:34px;
+  border-radius:26px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.45);
+}
+
+/* stat item */
+.stat-block {
+  flex:1 1 0;
+  text-align:left;
+  min-width:200px;
+}
+.stat-num {
+  font-size: clamp(44px, 6.0vw, 96px);
+  font-weight:900;
+  color:var(--neon);
+  margin-bottom:8px;
+}
+.stat-label {
+  font-size:20px;
+  font-weight:700;
+  color:var(--neon);
+  line-height:1.3;
+}
+
+/* decorative separator (use your 'Dawn.svg' or Figma.svg) */
+.stat-sep {
+  width:64px;
+  height:64px;
+  flex:0 0 auto;
+  opacity:0.95;
+}
+
+/* ---------- PORTFOLIO ---------- */
+.portfolio {
+  width: min(var(--content-width), 100%);
+  margin:0 auto 48px;
+}
+.portfolio-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px;
+}
+
+/* Card */
+.portfolio-card {
+  background:var(--card);
+  border-radius:12px;
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  border:1px solid rgba(255,255,255,0.03);
+}
+.portfolio-card img { width:100%; height:180px; object-fit:cover; border-radius:8px; }
+
+/* ---------- SKILLS ---------- */
+.skills {
+  width: min(var(--content-width), 100%);
+  margin:40px auto;
+}
+.skills-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+.skill-card {
+  background:var(--card);
+  border-radius:12px;
+  padding:20px;
+  display:flex;
+  gap:18px;
+  align-items:center;
+  border:1px solid rgba(255,255,255,0.03);
+}
+
+/* circle size */
+.skill-circle { width:120px; height:120px; }
+
+/* ---------- TESTIMONIAL ---------- */
+.testimonial {
+  width: min(var(--page-width), 100%);
+  margin:56px auto;
+  border-radius:20px;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  /* background uses your PNG */
+  background: url("assets/testimonial-bg.png") center/cover no-repeat;
+  padding: 84px 20px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.45);
+  text-align:center;
+}
+.testimonial .author { font-size: clamp(22px, 2.0vw, 34px); font-weight:800; margin-bottom:18px; }
+.testimonial .quote { max-width:980px; font-size:clamp(16px, 1.5vw, 22px); line-height:1.6; margin: 0 auto; }
+.testimonial-shield { width:64px; margin-top:28px; filter: drop-shadow(0 12px 22px rgba(0,0,0,0.45)); }
+
+/* ---------- FINAL PURPLE BANNER (CSS) ---------- */
+.banner {
+  width: min(1528px, 100%);
+  margin:40px auto;
+  border-radius:16px;
+  padding:18px 22px;
+  display:flex;
+  align-items:center;
+  gap:20px;
+  position:relative;
+  background: linear-gradient(90deg,#A769F2 0%,#9E63EC 50%,#8B54E3 100%);
+  box-shadow:0 8px 30px rgba(0,0,0,0.35);
+}
+.banner-left { width:150px; height:125px; border-radius:10px; object-fit:cover; box-shadow:0 8px 20px rgba(0,0,0,0.45); }
+.banner-text { color:#fff; font-size:16px; padding-right:120px; }
+
+/* banner white wave decorations via pseudo elements */
+.banner::before,
+.banner::after {
+  content:"";
+  position:absolute;
+  width:220px; height:180px;
+  border-radius:40%;
+  border:3px solid rgba(255,255,255,0.35);
+  opacity:0.85;
+}
+.banner::before { left:-50px; top:50%; transform:translateY(-50%) rotate(18deg); }
+.banner::after { right:-50px; top:50%; transform:translateY(-50%) rotate(-18deg); }
+
+/* ===== FOOTER ===== */
+
+.footer {
+    width: 100%;
+    padding: 40px 0;
+    background: #000;
+    border-top: 2px solid #b36bff;
+}
+
+.footer-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-nav {
+    display: flex;
+    gap: 40px;
+}
+
+.footer-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.footer-nav a:hover {
+    opacity: 0.6;
+}
+
+@media (max-width: 900px) {
+    .footer-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .footer-nav {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+/* ---------- MODAL & small utils ---------- */
+.modal { position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.6); z-index:200; }
+.modal[aria-hidden="false"]{ display:flex; }
+
+/* accessibility helper */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ---------- RESPONSIVE BREAKPOINTS ---------- */
+/* large laptops / small desktops */
+@media (max-width:1600px){
+  :root{ --page-width:1440px; --content-width:1200px; }
+  .hero-right { flex:0 0 420px; }
+  .hero-right img { max-width:420px; }
+  .title { font-size: clamp(56px, 9.5vw, 140px); }
+  .subtitle { font-size: clamp(28px, 5.5vw, 64px); }
+}
+
+/* typical laptop screens (1366) */
+@media (max-width:1400px){
+  :root{ --page-width:1280px; --content-width:1100px; }
+  .hero { gap:24px; padding-top:30px; }
+  .hero-right { flex:0 0 360px; }
+  .hero-right img { max-width:360px; }
+  .cv-link { min-width:360px; }
+  .portfolio-grid{grid-template-columns:repeat(2,1fr); }
+}
+
+/* tablet / small screens */
+@media (max-width:900px){
+  .page { padding:0 18px; }
+  .hero { flex-direction:column-reverse; align-items:center; padding:28px 0; }
+  .hero-left { align-items:center; text-align:center; max-width:100%; }
+  .hero-right { order:2; width:100%; flex:0 0 auto; }
+  .hero-right img { width:90%; max-width:420px; border-radius:14px; }
+  .social-icons { justify-content:center; }
+  .portfolio-grid{grid-template-columns:1fr;}
+  .stats{flex-direction:column; gap:18px; padding:22px;}
+  .banner::after{display:none;}
+  .banner{padding:18px}
+  .testimonial{padding:48px 18px}
+}
+
+/* tiny phones */
+@media (max-width:480px){
+  .title { font-size: clamp(32px, 10vw, 56px); letter-spacing:-0.6px; }
+  .subtitle { font-size: clamp(18px, 6.5vw, 28px); }
+  .social-icons a img { width:36px; height:36px; padding:5px; }
+  .cv-link{ width:100%; min-width:unset; padding:12px; }
+}
+
+/* end of stylesheet */
